@@ -1,0 +1,46 @@
+Elm.Components = Elm.Components || {};
+Elm.Components.make = function (_elm) {
+   "use strict";
+   _elm.Components = _elm.Components || {};
+   if (_elm.Components.values) return _elm.Components.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Component = Elm.Component.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var update = F2(function (action,model) {
+      var _p0 = action;
+      return A2($List.filter,
+      function (c) {
+         return !_U.eq(c,_p0._0);
+      },
+      model);
+   });
+   var Select = function (a) {    return {ctor: "Select",_0: a};};
+   var view = F2(function (address,model) {
+      return A2($Html.section,
+      _U.list([]),
+      A2($List._op["::"],
+      A2($Html.h1,_U.list([]),_U.list([$Html.text("Components")])),
+      A2($List.map,
+      function (c) {
+         return A2($Html.div,
+         _U.list([]),
+         _U.list([$Component.view(c)
+                 ,A2($Html.button,
+                 _U.list([A2($Html$Events.onClick,address,Select(c))]),
+                 _U.list([$Html.text("Select")]))]));
+      },
+      model)));
+   });
+   return _elm.Components.values = {_op: _op
+                                   ,Select: Select
+                                   ,update: update
+                                   ,view: view};
+};

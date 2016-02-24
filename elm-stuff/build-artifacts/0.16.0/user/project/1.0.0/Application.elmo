@@ -1,0 +1,51 @@
+Elm.Application = Elm.Application || {};
+Elm.Application.make = function (_elm) {
+   "use strict";
+   _elm.Application = _elm.Application || {};
+   if (_elm.Application.values) return _elm.Application.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Components = Elm.Components.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $SelectedComponents = Elm.SelectedComponents.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var update = F2(function (action,model) {
+      var _p0 = action;
+      var _p2 = _p0._0;
+      var _p1 = _p2;
+      return _U.update(model,
+      {components: A2($Components.update,_p2,model.components)
+      ,selectedComponents: A2($SelectedComponents.update,
+      $SelectedComponents.AddComponent(_p1._0),
+      model.selectedComponents)});
+   });
+   var init = {components: _U.list(["component1"
+                                   ,"component2"
+                                   ,"component3"])
+              ,selectedComponents: _U.list([])};
+   var ComponentsAction = function (a) {
+      return {ctor: "ComponentsAction",_0: a};
+   };
+   var view = F2(function (address,model) {
+      return A2($Html.div,
+      _U.list([]),
+      _U.list([A2($Components.view,
+              A2($Signal.forwardTo,address,ComponentsAction),
+              model.components)
+              ,$SelectedComponents.view(model.selectedComponents)]));
+   });
+   var Model = F2(function (a,b) {
+      return {components: a,selectedComponents: b};
+   });
+   return _elm.Application.values = {_op: _op
+                                    ,Model: Model
+                                    ,ComponentsAction: ComponentsAction
+                                    ,init: init
+                                    ,update: update
+                                    ,view: view};
+};
